@@ -1,90 +1,65 @@
 package test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Set;
+
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
+import utilities.InitializeDriver;
+import utilities.page.elements.GmailElement;
 
-
-import javax.mail.Flags;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.search.SubjectTerm;
-
-
-public class EmailVerification {
+public class EmailVerification extends InitializeDriver{
     @Test
     public  void test1 ()throws Exception {
-
-        // TODO Auto-generated method stub
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\sortuno\\IdeaProjects\\LightningSalesforce\\browser\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
-        driver.get("https://accounts.google.com/ServiceLogin?");
-
+        initializeDriver();
+        driver.get("https://mail.google.com/mail/?ui=html&zy=h");
 // gmail login
-        driver.findElement(By.id("identifierId")).sendKeys("salvador.ortuno@globant.com");
-        driver.findElement(By.id("identifierNext")).click();
-        driver.findElement(By.name("password")).sendKeys("540RamxITOPBE");
-        driver.findElement(By.id("passwordNext")).click();
-        driver.findElement(By.className("gb_xe")).click();
-        driver.findElement(By.className("gb_k")).click();
-
-/*
-// some optional actions for reaching gmail inbox
-        driver.findElement(By.xpath("//*[@title='Google apps']")).click();
-        driver.findElement(By.id("gb23")).click();
-*/
-        System.out.println("validando... ");
-// now talking un-read email form inbox into a list
-      //List<WebElement> unreademeil = driver.findElements(By.xpath("//*[contains(text(),'Email varification Testcase')]"));
-       /* WebDriverWait wait = new WebDriverWait(driver,10);
-        List<WebElement> inboxEmails = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@class='zA zE']"))));*/
-
-        List<WebElement> a = driver.findElements(By.xpath("//table/tbody/tr/td[5]/div[@class='yW']"));
-        System.out.println(a.size());
-        for (int i = 0; i < a.size(); i++) {
-            System.out.println(a.get(i).getText());
-            if (a.get(i).getText().equals("Email varification Testcase")) //to click on a specific mail.
-            {
-                a.get(i).click();
+        GmailElement.fillGmUserName(driver,"glbltest.salesforce@gmail.com");
+        GmailElement.gmBtnNext(driver).click();
+        Thread.sleep(3000);
+        GmailElement.fillGmPassword(driver,"61084n7mex01");
+        GmailElement.gmBtnPassNext(driver).click();
+        Thread.sleep(3000);
+        try {
+            WebElement el = driver.findElement(By.xpath("//*[@id=\"maia-main\"]/form/p/input"));
+            if (el.isDisplayed()) {
+                el.click();
             }
+        }catch (Exception e){
+            System.out.println("no se encontro el elemento");
         }
 
-
-
-
-  /*      int size = unreademeil.size();
-        System.out.println("Size of the list: "+size);
-// real logic starts here
-        for (int i = 0; i < size; i++) {
-            System.out.println("Size of the list: "+size);
-// Mailer name for which i want to check do i have an email in my inbox
-            String MyMailer = "Atlassian";
-            if (unreademeil.get(i).isDisplayed() == true) {
-                // now verify if you have got mail form a specific mailer (Note Un-read mails)
-                // for read mails xpath loactor will change but logic will remain same
-                if (unreademeil.get(i).getText().equals(MyMailer)) {
-                    System.out.println("Yes we have got mail form " + MyMailer);
-                    // also you can perform more actions here
-                    // like if you want to open email form the mailer
+//filter email
+            GmailElement.searchOption(driver).click();
+            GmailElement.fillSubject(driver, "Welcome to Salesforce: Verify your account");
+            GmailElement.selectSearchBy(driver, "Unread Mail");
+            GmailElement.btnSearchEmail(driver).click();
+//Open email
+            GmailElement.openUnreadEmail(driver).click();
+            GmailElement.btnVerifyAccount(driver).click();
+//Change Password
+            String parentHandle = driver.getWindowHandle();
+            System.out.println(parentHandle);
+            //Get all handles
+            Set<String> handles = driver.getWindowHandles();
+            //Switch between handles
+            for (String handle : handles) {
+                System.out.println(handle);
+                if (!handle.equals(parentHandle)) {
+                    driver.switchTo().window(handle);
+                    Thread.sleep(3000);
+                    driver.findElement(By.id("newpassword")).sendKeys("test1234");
+                    driver.findElement(By.id("confirmpassword")).sendKeys("test1234");
+                    driver.findElement(By.id("answer")).sendKeys("test");
+                    if (driver.findElement(By.id("password-button")).isEnabled()) {
+                        driver.findElement(By.id("password-button")).click();
+                    }
+                    Thread.sleep(3000);
+                    driver.close();
                     break;
-                } else {
-                    System.out.println("No mail form " + MyMailer);
                 }
             }
-        }*/
-
+        }
     }
-}
+
 
 
