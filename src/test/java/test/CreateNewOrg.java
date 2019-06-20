@@ -16,15 +16,16 @@ public class CreateNewOrg extends InitializeDriver {
     public void createOrg()throws Exception{
         PageSignUpElement.fillOrgFirstName(driver, "Salvador");
         PageSignUpElement.fillOrgLastName(driver, "Ortuno");
-        PageSignUpElement.fillOrgEmail(driver, "salvador.ortuno@globant.com");
+        PageSignUpElement.fillOrgEmail(driver, "glbltest.salesforce@gmail.com");
         PageSignUpElement.selectJobRole(driver,"Administrator");
         PageSignUpElement.fillCompanyName(driver, "Test Company");
         PageSignUpElement.selectCountry(driver, "United States");
         PageSignUpElement.fillPostalCode(driver,"0300");
-        PageSignUpElement.fillUserName(driver,"glblautomationtest33@de.org");
+        PageSignUpElement.fillUserName(driver,"emailacct04@de.org");
         PageSignUpElement.selectCheckBox(driver,true);
-        PageSignUpElement.submitButton(driver).click();
 
+        PageSignUpElement.submitButton(driver).click();
+        Thread.sleep(3000);
         EmailVerification openEmail = new EmailVerification();
         openEmail.test1();
     }
