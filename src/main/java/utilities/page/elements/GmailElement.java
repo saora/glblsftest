@@ -74,4 +74,9 @@ public class GmailElement {
         sfelement = driver.findElement(By.xpath("as_subset"));
         return sfelement;
 }
+    public static WebElement classicMode(WebDriver driver){
+        sfelement = driver.findElement(By.xpath("//*[@id=\"maia-main\"]/form/p/input"));
+        return sfelement;
+    }
+
 }

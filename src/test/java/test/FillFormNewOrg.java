@@ -5,9 +5,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import utilities.InitializeDriver;
+import utilities.ReadPropertiesFile;
 import utilities.page.elements.PageSignUpElement;
 
 public class FillFormNewOrg extends InitializeDriver {
+
+
 @Test
     public void fillOutFormNewOrg() throws Exception{
     initializeDriver();
@@ -21,7 +24,7 @@ public class FillFormNewOrg extends InitializeDriver {
     PageSignUpElement.selectCountry(driver, "United States");
     PageSignUpElement.fillPostalCode(driver,"0300");
     PageSignUpElement.fillUserName(driver,"glblautomation02@de.org");
-    PageSignUpElement.selectCheckBox(driver,true);
+    PageSignUpElement.selectCheckBox(driver);
     PageSignUpElement.submitButton(driver).click();
     }
    @AfterTest

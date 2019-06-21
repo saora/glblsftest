@@ -78,7 +78,7 @@ public class PageSignUpElement {
         sfelement = driver.findElement(By.id("eula"));
         return sfelement;
     }
-    public static void selectCheckBox(WebDriver driver, boolean chkBox){
+    public static void selectCheckBox(WebDriver driver){
         sfelement = scheck(driver);
         sfelement.isSelected();
     }
