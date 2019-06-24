@@ -12,13 +12,11 @@ import java.io.IOException;
 public class CreateNewOrg extends InitializeDriver {
     private String fileProp;
     private ReadPropertiesFile prop = new ReadPropertiesFile();
-
     @BeforeTest
     public String getPropertyUrl()throws IOException {
         fileProp = prop.propFile().getProperty("base.url");
         return fileProp;
     }
-
     @Test
     public void createOrg()throws Exception{
         initializeDriver();

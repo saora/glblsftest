@@ -15,8 +15,6 @@ public class FillFormNewOrg extends InitializeDriver {
     initializeDriver();
     driver.get("https://developer.salesforce.com/signup");
 
-
-
     PageSignUpElement.fillOrgFirstName(driver, "Salvador");
     PageSignUpElement.fillOrgLastName(driver, "Ortuno");
     PageSignUpElement.fillOrgEmail(driver, "glbltest.salesforce@gmail.com");

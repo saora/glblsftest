@@ -33,11 +33,16 @@ public class LoginElement {
         return loginelement;
     }
     public static void fillVerificationCode(WebDriver driver, String vCode){
-        loginelement = loginUsername(driver);
+        loginelement = verificationCode(driver);
         loginelement.sendKeys(vCode);
     }
     public static WebElement btnVerify(WebDriver driver){
         loginelement = driver.findElement(By.id("save"));
         return loginelement;
     }
+    public static WebElement linkRegPhoneN(WebDriver driver){
+        loginelement = driver.findElement(By.xpath("//*[@id=\"editPage\"]/p[2]/a[2]"));
+        return loginelement;
+    }
+
 }

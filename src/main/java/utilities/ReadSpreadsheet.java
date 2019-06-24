@@ -83,19 +83,14 @@ public class ReadSpreadsheet extends InitializeDriver{
                 else
                 {
                     System.out.println("No se encontro elemento");
-
                 }}catch(Exception e){
                     System.out.println(e);
                 }
                 PageSignUpElement.submitButton(driver).click();
                 Thread.sleep(6000);
                 driver.navigate().refresh();
-
             }
-
         }
     }
-
-
     }
 
