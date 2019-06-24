@@ -1,5 +1,6 @@
 package test;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -14,7 +15,6 @@ public class loginOrgSF extends InitializeDriver {
         initializeDriver();
         driver.get(prop.propFile().getProperty("login.url"));
     }
-
     @Test
     public void loginOrgSF() throws Exception{
         LoginElement.fillUsername(driver, prop.propFile().getProperty("user.email2"));
@@ -22,20 +22,16 @@ public class loginOrgSF extends InitializeDriver {
         LoginElement.btnLogin(driver).click();
         //Verify Your Identity
         try{
-            LoginElement.fillVerificationCode(driver,"");
-            LoginElement.btnVerify(driver).click();
-
+            if(LoginElement.linkRegPhoneN(driver).isDisplayed());{
+                LoginElement.linkRegPhoneN(driver).click();
+            }
         }catch(Exception e){
-
+            System.out.println(e);
         }
-
-
     }
-
     @AfterTest
     public void tearDown()throws Exception{
         Thread.sleep(1000);
        // driver.close();
-
     }
 }
